@@ -1,5 +1,6 @@
 import model.entities.CarRental;
 import model.entities.Vehicle;
+import model.services.BrazilTaxService;
 import model.services.RentalService;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class Main {
         LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), dtf);
         CarRental carRental = new CarRental(start, finish, new Vehicle(model));
 
-        RentalService rentalService = new RentalService();
+        RentalService rentalService = new RentalService(new BrazilTaxService());
         rentalService.processInvoice(carRental);
 
                 System.out.println();

@@ -3,19 +3,27 @@ package model.services;
 import model.entities.CarRental;
 import model.entities.Invoice;
 
+
 import java.time.Duration;
 
 public class RentalService {
     private static final Double PRICE_PER_HOUR = 10.0;
     private static Double PRICE_PER_DAY = 130.0;
 
-    private BrazilTaxService taxService = new BrazilTaxService();
+    private TaxService taxService;
 
-    public BrazilTaxService getTaxService() {
+    public RentalService() {
+    }
+
+    public RentalService(TaxService taxService) {
+        this.taxService = taxService;
+    }
+
+    public TaxService getTaxService() {
         return taxService;
     }
 
-    public void setTaxService(BrazilTaxService taxService) {
+    public void TaxService(TaxService taxService) {
         this.taxService = taxService;
     }
 
@@ -34,7 +42,7 @@ public class RentalService {
 
         }
 
-        double tax = taxService.tax(basicPayment);
+        Double tax = taxService.tax(basicPayment);
         carRental.setInvoice(new Invoice(basicPayment, tax));
     }
 }
