@@ -9,7 +9,7 @@ public class RentalService {
     private static final Double PRICE_PER_HOUR = 10.0;
     private static Double PRICE_PER_DAY = 130.0;
 
-    private BrazilTaxService taxService;
+    private BrazilTaxService taxService = new BrazilTaxService();
 
     public BrazilTaxService getTaxService() {
         return taxService;
