@@ -2,7 +2,8 @@ package model.services;
 
 //CLASS RESPONSIBLE FOR CALCULATING THE INVOICE TAX
 public class BrazilTaxService {
-    private Double tax(Double amount){
+
+    protected Double tax(Double amount){
         if(amount <= 100.00){
             return amount * 0.20;
         } else {

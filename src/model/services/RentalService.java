@@ -1,6 +1,9 @@
 package model.services;
 
 import model.entities.CarRental;
+import model.entities.Invoice;
+
+import java.time.Duration;
 
 public class RentalService {
     private static final Double PRICE_PER_HOUR = 10.0;
@@ -19,6 +22,19 @@ public class RentalService {
     ////METHOD RESPONSIBLE FOR GENERATING THE INVOICE IN THE CARRENTAL CLASS
     public void processInvoice(CarRental carRental){
 
-        carRental.getInvoice();
+        //HOURS AND DAYS CALCULATOR
+        long diff = Duration.between(carRental.getStart(), carRental.getFinish()).toMinutes();
+        Double horas = Math.ceil(diff / 60.0);
+
+        Double basicPayment;
+        if(horas <= 12.0){
+            basicPayment = horas * PRICE_PER_HOUR;
+        } else {
+            basicPayment = Math.ceil(horas / 24) * PRICE_PER_DAY;
+
+        }
+
+        double tax = taxService.tax(basicPayment);
+        carRental.setInvoice(new Invoice(basicPayment, tax));
     }
 }
